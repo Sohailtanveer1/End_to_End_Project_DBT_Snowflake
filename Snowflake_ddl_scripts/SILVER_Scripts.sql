@@ -1,0 +1,1 @@
+-- This script create fact and dimension tables in the silver layer of Snowflake

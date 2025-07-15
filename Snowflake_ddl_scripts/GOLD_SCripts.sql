@@ -1,0 +1,1 @@
+-- This script is intended to create the gold layer views in Snowflake

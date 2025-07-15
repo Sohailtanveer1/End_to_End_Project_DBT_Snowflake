@@ -1,0 +1,1 @@
+-- This script is intended to create the bronze layer tables in Snowflake
