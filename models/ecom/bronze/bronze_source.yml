@@ -1,0 +1,12 @@
+version: 2
+sources:
+  - name: bronze
+    database: ecom
+    schema: bronze
+    tables:
+      - name: orders
+      - name: items
+      - name: customers
+      - name: order_lines
+      - name: payments
+      - name: shippings
