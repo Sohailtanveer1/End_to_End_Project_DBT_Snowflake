@@ -1,4 +1,8 @@
-{{ config(materialized='view') }}
+{{ config(
+    materialized='incremental',
+    alias = "shippings",
+    pre_hook = "TRUNCATE TABLE {{ source('bronze', 'shippings') }}"
+    ) }}
 
 SELECT
     CAST(shipping_id AS INT) AS shipping_id,
