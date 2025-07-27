@@ -10,5 +10,5 @@ SELECT
     DATE_PART('month', order_date) AS order_month,
     etl_created_at,
     etl_updated_at
-FROM {{ source('bronze', 'orders') }}
+FROM {{ source('bronze', 'clean_orders') }}
 WHERE order_id IS NOT NULL

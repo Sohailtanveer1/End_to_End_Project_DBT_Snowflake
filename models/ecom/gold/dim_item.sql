@@ -6,4 +6,4 @@ SELECT
     item_name,
     category,
     price
-FROM {{ ref('items') }}
+FROM {{ ref('stg_items') }}

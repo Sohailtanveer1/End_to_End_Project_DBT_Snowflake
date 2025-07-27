@@ -1,7 +1,6 @@
 {{ config(
     materialized='incremental',
-    alias = "shippings",
-    pre_hook = "TRUNCATE TABLE {{ source('bronze', 'shippings') }}"
+    pre_hook = "TRUNCATE TABLE {{ source('bronze', 'clean_shippings') }}"
     ) }}
 
 SELECT
@@ -11,7 +10,5 @@ SELECT
     TRIM(shipping_address) AS shipping_address,
     TRIM(shipping_method) AS shipping_method,
     TRIM(shipping_status) AS shipping_status,
-    etl_created_at,
-    etl_updated_at
-FROM {{ source('bronze', 'shippings') }}
-WHERE shipping_id IS NOT NULL
+    etl_timestamp
+FROM {{ ref('raw_shippings') }}

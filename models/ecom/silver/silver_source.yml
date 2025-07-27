@@ -4,9 +4,9 @@ sources:
     database: ecom
     schema: silver
     tables:
-      - name: orders
-      - name: items
-      - name: customers
-      - name: order_lines
-      - name: payments
-      - name: shippings
+      - name: stg_orders
+      - name: stg_items
+      - name: stg_customers
+      - name: stg_order_lines
+      - name: stg_payments
+      - name: stg_shippings

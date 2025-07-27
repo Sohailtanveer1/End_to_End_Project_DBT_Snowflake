@@ -1,4 +1,4 @@
-{{ config(materialized='table') }}
+{{ config(materialized='incremental') }}
 
 WITH shipping_data AS (
     SELECT
@@ -12,8 +12,8 @@ WITH shipping_data AS (
         DATEDIFF(day, o.order_date, s.shipping_date) AS delivery_days,
         s.etl_created_at,
         s.etl_updated_at
-    FROM {{ source('bronze', 'shippings') }} s
-    LEFT JOIN {{ source('bronze', 'orders') }} o
+    FROM {{ source('bronze', 'clean_shippings') }} s
+    LEFT JOIN {{ source('bronze', 'clean_orders') }} o
         ON s.order_id = o.order_id
 )
 

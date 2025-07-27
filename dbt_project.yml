@@ -42,9 +42,7 @@ models:
       +materialized: table
 
     ecom:
-      bronze:
-        +materialized: table
       silver:
-        +materialized: table
+        +materialized: incremental
       gold:
         +materialized: incremental

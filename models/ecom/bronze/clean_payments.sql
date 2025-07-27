@@ -1,4 +1,6 @@
-{{ config(materialized='view') }}
+{{ config(materialized='view',
+    pre_hook = "TRUNCATE TABLE {{source('bronze','clean_payments')}}"
+) }}
 
 SELECT
     CAST(payment_id AS INT) AS payment_id,
@@ -7,7 +9,5 @@ SELECT
     TRY_CAST(amount AS DECIMAL(10,2)) AS amount,
     TRIM(payment_method) AS payment_method,
     TRIM(status) AS status,
-    etl_created_at,
-    etl_updated_at
-FROM {{ source('bronze', 'payments') }}
-WHERE payment_id IS NOT NULL
+    etl_timestamp
+FROM {{ ref('raw_payments') }}

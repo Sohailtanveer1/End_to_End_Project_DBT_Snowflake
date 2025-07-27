@@ -9,5 +9,5 @@ SELECT
     quantity * unit_price AS total_price,
     etl_created_at,
     etl_updated_at
-FROM {{ source('bronze', 'order_lines') }}
+FROM {{ source('bronze', 'clean_order_lines') }}
 WHERE order_line_id IS NOT NULL

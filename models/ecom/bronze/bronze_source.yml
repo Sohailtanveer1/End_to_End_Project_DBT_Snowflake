@@ -4,9 +4,9 @@ sources:
     database: ecom
     schema: bronze
     tables:
-      - name: orders
-      - name: items
-      - name: customers
-      - name: order_lines
-      - name: payments
-      - name: shippings
+      - name: clean_orders
+      - name: clean_items
+      - name: clean_customers
+      - name: clean_order_lines
+      - name: clean_payments
+      - name: clean_shippings

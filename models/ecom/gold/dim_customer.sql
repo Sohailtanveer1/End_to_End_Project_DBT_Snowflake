@@ -7,4 +7,4 @@ SELECT
     customer_location,
     is_active,
     registration_date
-FROM {{ ref('customers') }}
+FROM {{ ref('stg_customers') }}

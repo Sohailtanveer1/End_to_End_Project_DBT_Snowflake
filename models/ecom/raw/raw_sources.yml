@@ -1,0 +1,12 @@
+version: 2
+sources:
+  - name: raw
+    database: ecom
+    schema: raw
+    tables:
+      - name: orders
+      - name: items
+      - name: customers
+      - name: order_lines
+      - name: payments
+      - name: shippings

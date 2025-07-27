@@ -1,4 +1,6 @@
-{{ config(materialized='table') }}
+{{ config(materialized='incremental',
+    pre_hook = "TRUNCATE TABLE {{source('silver','stg_customers')}}"
+) }}
 
 SELECT
     customer_id,
@@ -9,7 +11,5 @@ SELECT
     registration_date,
     is_active,
     CONCAT_WS(', ', city, state, country) AS customer_location,
-    etl_created_at,
-    etl_updated_at
-FROM {{ source('bronze', 'customers') }}
-WHERE customer_id IS NOT NULL
+    etl_timestamp
+FROM {{ ref('clean_customers') }}
