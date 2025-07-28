@@ -1,4 +1,5 @@
-{{ config(materialized='table') }}
+{{ config(materialized='incremental',
+pre_hook = "TRUNCATE TABLE {{source('silver','stg_order_lines')}}") }}
 
 SELECT
     order_line_id,
@@ -7,7 +8,5 @@ SELECT
     quantity,
     unit_price,
     quantity * unit_price AS total_price,
-    etl_created_at,
-    etl_updated_at
-FROM {{ source('bronze', 'clean_order_lines') }}
-WHERE order_line_id IS NOT NULL
+    etl_timestamp
+FROM {{ ref('clean_order_lines') }}

@@ -1,4 +1,5 @@
-{{ config(materialized='incremental') }}
+{{ config(materialized='incremental',
+pre_hook = "TRUNCATE TABLE {{source('silver','stg_shippings')}}") }}
 
 WITH shipping_data AS (
     SELECT
@@ -10,10 +11,9 @@ WITH shipping_data AS (
         s.shipping_status,
         o.order_date,
         DATEDIFF(day, o.order_date, s.shipping_date) AS delivery_days,
-        s.etl_created_at,
-        s.etl_updated_at
-    FROM {{ source('bronze', 'clean_shippings') }} s
-    LEFT JOIN {{ source('bronze', 'clean_orders') }} o
+        s.etl_timestamp
+    FROM {{ ref('clean_shippings') }} s
+    LEFT JOIN {{ ref('clean_orders') }} o
         ON s.order_id = o.order_id
 )
 

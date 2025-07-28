@@ -1,4 +1,5 @@
-{{ config(materialized='table') }}
+{{ config(materialized='incremental',
+pre_hook = "TRUNCATE TABLE {{source('silver','stg_orders')}}") }}
 
 SELECT
     order_id,
@@ -8,7 +9,5 @@ SELECT
     status,
     DATE_PART('year', order_date) AS order_year,
     DATE_PART('month', order_date) AS order_month,
-    etl_created_at,
-    etl_updated_at
-FROM {{ source('bronze', 'clean_orders') }}
-WHERE order_id IS NOT NULL
+    etl_timestamp
+FROM {{ ref('clean_orders') }}

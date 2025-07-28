@@ -1,4 +1,5 @@
-{{ config(materialized='table') }}
+{{ config(materialized='incremental',
+pre_hook = "TRUNCATE TABLE {{source('silver','stg_payments')}}") }}
 
 SELECT
     payment_id,
@@ -7,7 +8,5 @@ SELECT
     amount,
     payment_method,
     status,
-    etl_created_at,
-    etl_updated_at
-FROM {{ source('bronze', 'clean_payments') }}
-WHERE payment_id IS NOT NULL
+    etl_timestamp
+FROM {{ ref('clean_payments') }}
